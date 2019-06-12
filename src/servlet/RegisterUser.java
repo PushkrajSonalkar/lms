@@ -1,6 +1,7 @@
 package servlet;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -19,13 +20,19 @@ public class RegisterUser extends HttpServlet
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException 
 	{
 		String user = req.getParameter("uname");
-		int id=1;
-		String email= req.getParameter("email");
+		PrintWriter out = resp.getWriter();
+		String empid=req.getParameter("eid");
+		String email= req.getParameter("uemail");
 		String psw = req.getParameter("psw");
 		String cpsw = req.getParameter("cpsw");
 		if(cpsw.equals(psw)) 
 		{
-			RegisterUser.Save(user, email, psw);
+			if(RegisterUser.Register(empid,user,email, psw)) {
+				out.println("<script type=\"text/javascript\">");
+                out.println("alert('Registration Successful');");
+                out.println("location='index.jsp';");
+                out.println("</script>");                         
+			}
 		}
 		else {
 			resp.sendRedirect("RegisterUser.jsp");
@@ -33,24 +40,26 @@ public class RegisterUser extends HttpServlet
 		}
 		
 	}
-	public static void Save(String u, String e,String p) 
+	public static boolean Register(String i,String u, String e,String p) 
 	{
+		boolean sts=false;
 		try
 		{
 			Connection con = DB.getCon();
 			
-			PreparedStatement ps = con.prepareStatement("insert into book_user where email=? and password=?");
-			ps.setString(1, e);
-			ps.setString(2, p);
-			ResultSet rs = ps.executeQuery();
-			if(rs.next())
-			{
-				
-			}
+			PreparedStatement ps = con.prepareStatement("insert into book_user values(?,?,?,?,?)");
+			ps.setString(1, i);
+			ps.setString(2, u);
+			ps.setString(3, e);
+			ps.setString(4, p);
+			ps.setLong(5, 0);
+			ps.executeUpdate();
+			sts=true;
 			con.close();
 		}catch(Exception e1)
 		{
 			e1.printStackTrace();
 		}
+		return sts;
 	}
 }

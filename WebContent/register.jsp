@@ -4,12 +4,8 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
-</head>
-<body>
-	
-</body>
-</html>
+<title>User Registration</title>
+
     <!-- Bootstrap core CSS-->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
@@ -28,12 +24,24 @@
         <div class="card-header">Register an Account</div>
         <div class="card-body">
           <form method="post" action="RegiUser">
-            <div class="form-group">
+          	<div class="form-row">
+	            <div class="col-md-6">
+			    	<div class="form-group">
+	                  <div class="form-label-group">
+	                    <input type="text" id="firstName" class="form-control" name="eid" placeholder="Employee Id" required="required" autofocus="autofocus">
+	                    <label for="firstName">Employee Id</label>
+	                  </div>
+             	</div>
+				</div>
+				<div class="col-md-6">
+			            <div class="form-group">
                   <div class="form-label-group">
                     <input type="text" id="firstName" class="form-control" name="uname" placeholder="First name" required="required" autofocus="autofocus">
                     <label for="firstName">Name</label>
                   </div>
              </div>
+				</div>
+			</div>
             <div class="form-group">
               <div class="form-label-group">
                 <input type="email" id="inputEmail" class="form-control" name="uemail" placeholder="Email address" required="required">
@@ -59,8 +67,7 @@
             <input type="submit" class="btn btn-primary btn-block" value="Register">
           </form>
           <div class="text-center">
-            <a class="d-block small mt-3" href="login.html">Login Page</a>
-            <a class="d-block small" href="forgot-password.html">Forgot Password?</a>
+            <a class="d-block small mt-3" href="index.jsp">Login Page</a>
           </div>
         </div>
       </div>
